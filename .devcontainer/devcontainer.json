@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/azure-ansible
+{
+	"name": "Azure Ansible (Community)",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"INSTALL_DOCKER": "true",
+			"INSTALL_NODE": "false",
+			"INSTALL_TERRAFORM": "true",
+			"INSTALL_ANSBILE": "true"
+		}
+	},
+	"mounts": [
+		// [Optional] Anisble Collections: Uncomment if you want to mount your local .ansible/collections folder.
+		// "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ansible/collections,target=/root/.ansible/collections,type=bind,consistency=cached",
+		"source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+	],
+	"overrideCommand": false,
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "zsh"
+					}
+				},
+				"terminal.integrated.env.linux": {
+					"ZDOTDIR": "/home/vscode/.local/etc/zsh"
+				},
+				"dotfiles.repository": "https://github.com/mfakane/dotfiles.git",
+				"dotfiles.targetPath": "~/.local",
+				"dotfiles.installCommand": "~/.local/install.sh",
+				"python.defaultInterpreterPath": "python3",
+				"[yaml]": {
+					"editor.defaultFormatter": "redhat.vscode-yaml"
+				}
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"redhat.vscode-yaml",
+				"ms-vscode.azurecli",
+				"ms-azuretools.vscode-docker",
+				"zbr.vscode-ansible",
+				"hashicorp.terraform"
+			]
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "ansible --version",
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
+}
