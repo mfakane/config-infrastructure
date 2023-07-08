@@ -14,6 +14,14 @@ resource "cloudflare_record" "github_pages" {
   comment = "GitHub Pages domain verification"
 }
 
+resource "cloudflare_record" "bsky_verification" {
+  zone_id = data.cloudflare_zone.domain.id
+  type    = "TXT"
+  name    = "_atproto"
+  value   = "did=did:plc:a65mtn62h5wwhu3n4uy2qcaz"
+  comment = "Bluesky domain verification"
+}
+
 module "fastmail" {
   source             = "../modules/cloudflare_fastmail"
   domain_name        = data.cloudflare_zone.domain.name
