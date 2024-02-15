@@ -3,11 +3,15 @@ variable "cloudflare_account_id" {}
 variable "betteruptime_api_token" {}
 
 terraform {
-  cloud {
-    organization = "linearstar"
-    workspaces {
-      name = "sorairo_pictures"
-    }
+  backend "s3" {
+    bucket = "tfstate-linearstar"
+    key    = "sorairo.pictures/terraform.tfstate"
+    region = "us-east-1"
+
+    skip_credentials_validation = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
   }
 
   required_providers {

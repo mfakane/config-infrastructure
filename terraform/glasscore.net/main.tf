@@ -2,11 +2,15 @@ variable "cloudflare_api_token" {}
 variable "betteruptime_api_token" {}
 
 terraform {
-  cloud {
-    organization = "linearstar"
-    workspaces {
-      name = "glasscore_net"
-    }
+  backend "s3" {
+    bucket = "tfstate-linearstar"
+    key    = "glasscore.net/terraform.tfstate"
+    region = "us-east-1"
+
+    skip_credentials_validation = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
   }
 
   required_providers {
